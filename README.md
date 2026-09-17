@@ -1,2 +1,2 @@
 # Notifications_and_Communications_Subsystem
-Subsystem 6 for Mason CareerLaunch
+Subsystem 6 for Mason CareerLaunch by Team 1

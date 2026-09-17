@@ -1,0 +1,8 @@
+9/17 - 001
+Title: Use event-driven architecture for notifications and communications subsystem
+Status: Accepted
+Context: We need to manage the core responsibilities of our subsystem, including but not limited to: notification inbox, weekly digest email. Other subsystems will want to notify the user of certain events. 
+Event driven design will fit our subsystem since the structure is relevant to our purpose, which is to notify users of an event.     
+Decision: We will use event driven architecture as the base for our subsystem.  
+Consequences: Unless our subsystem is triggered by an event, the user will not receive the notification. This matters for time sensitive events. 
+We will test this feature to ensure timely notifications.  

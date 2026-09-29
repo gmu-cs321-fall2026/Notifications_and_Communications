@@ -1,0 +1,155 @@
+/* Basic page setup */
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #e9edf3;
+    color: #20242a;
+}
+
+/* Keeps the inbox centered while allowing the page to grow */
+.page {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 40px 20px;
+}
+
+/* The inbox itself */
+.inbox {
+    width: min(900px, 100%);
+    margin: 0 auto;
+
+    box-sizing: border-box;
+
+    background-color: #ffffff;
+
+    border: 1px solid #cbd2dc;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+
+    /*
+     * There is deliberately NO fixed height and NO overflow: auto.
+     *
+     * Therefore, as emails are added, the inbox grows naturally.
+     * If it becomes taller than the browser window, the PAGE scrolls.
+     */
+}
+
+/* Inbox heading */
+.inbox-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 24px;
+
+    background-color: #dce7f5;
+
+    border-bottom: 1px solid #c3cfdd;
+    border-radius: 10px 10px 0 0;
+}
+
+.inbox-header h1 {
+    margin: 0;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+#email-count {
+    color: #5d6673;
+    font-size: 14px;
+}
+
+/* Container for all emails */
+.email-list {
+    width: 100%;
+}
+
+/* Individual email */
+.email {
+    box-sizing: border-box;
+
+    padding: 22px 24px;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #dfe3e8;
+}
+
+/* Remove the border from the final email */
+.email:last-child {
+    border-bottom: none;
+}
+
+/* Email title */
+.email-title {
+    margin: 0 0 10px 0;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    color: #15191e;
+}
+
+/* Email body */
+.email-body {
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: 400;
+
+    line-height: 1.6;
+
+    color: #444b55;
+
+    /*
+     * Long words are allowed to wrap so an individual email
+     * does not force the entire inbox wider.
+     */
+    overflow-wrap: anywhere;
+}
+
+/* Empty inbox message */
+.empty-inbox {
+    padding: 40px 24px;
+
+    text-align: center;
+
+    color: #737b87;
+
+    font-size: 16px;
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+    .page {
+        padding: 20px 10px;
+    }
+
+    .inbox-header {
+        padding: 16px;
+    }
+
+    .inbox-header h1 {
+        font-size: 24px;
+    }
+
+    .email {
+        padding: 18px 16px;
+    }
+
+    .email-title {
+        font-size: 20px;
+    }
+}

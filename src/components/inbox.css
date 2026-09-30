@@ -1,0 +1,679 @@
+/* =========================================================
+   GEORGE MASON UNIVERSITY
+   MODERN INBOX CUSTOM STYLES
+   ========================================================= */
+
+
+/* =========================================================
+   BRAND VARIABLES
+   ========================================================= */
+
+   :root {
+    --mason-green: #005239;
+    --mason-green-dark: #003d2b;
+    --mason-green-light: #e8f1ed;
+
+    --mason-gold: #ffc733;
+    --mason-gold-light: #fff4cc;
+
+    --mason-black: #333333;
+    --mason-gray: #727579;
+    --mason-light-gray: #f5f7f6;
+    --mason-border: #dfe5e2;
+
+    --white: #ffffff;
+}
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin-top: 32px;
+    margin-bottom: 40px;
+
+    background-color: var(--mason-light-gray);
+    color: var(--mason-black);
+
+    font-family:
+        "Figtree",
+        "Open Sans",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+a {
+    color: var(--mason-green);
+}
+
+a:hover,
+a:focus {
+    color: var(--mason-green-dark);
+}
+
+button:focus,
+a:focus,
+input:focus {
+    outline: 3px solid rgba(255, 199, 51, 0.65);
+    outline-offset: 2px;
+}
+
+.bootstrap {
+    max-width: 1200px;
+}
+
+
+/* =========================================================
+   GEORGE MASON HEADER
+   ========================================================= */
+
+.mason-header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 22px;
+    padding: 0 4px;
+}
+
+.mason-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    margin-right: 12px;
+
+    background-color: var(--mason-green);
+    color: var(--mason-gold);
+
+    border-radius: 6px;
+
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.mason-title {
+    margin: 0;
+
+    color: var(--mason-green);
+
+    font-size: 21px;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.mason-subtitle {
+    margin-top: 3px;
+
+    color: var(--mason-gray);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.toolbar {
+    min-height: 34px;
+}
+
+.toolbar .checkbox {
+    margin: 0;
+}
+
+.toolbar .checkbox label {
+    min-height: 18px;
+    padding-left: 17px;
+}
+
+.toolbar .checkbox input[type="checkbox"] {
+    margin-left: -17px;
+    margin-top: 2px;
+}
+
+.message-range {
+    display: inline-block;
+
+    margin-right: 8px;
+
+    color: var(--mason-gray);
+    line-height: 30px;
+}
+
+.message-range b {
+    color: var(--mason-black);
+}
+
+hr {
+    margin-top: 12px;
+    margin-bottom: 18px;
+
+    border-top: 1px solid var(--mason-border);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-weight: 500;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.btn-default {
+    color: var(--mason-black);
+
+    background-color: var(--white);
+
+    border-color: var(--mason-border);
+}
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.open > .dropdown-toggle.btn-default {
+    color: var(--mason-green);
+
+    background-color: var(--mason-green-light);
+
+    border-color: #bfd2ca;
+}
+
+.btn-info {
+    color: var(--white);
+
+    background-color: var(--mason-green);
+
+    border-color: var(--mason-green);
+}
+
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.open > .dropdown-toggle.btn-info {
+    color: var(--white);
+
+    background-color: var(--mason-green-dark);
+
+    border-color: var(--mason-green-dark);
+}
+
+.btn-success {
+    color: var(--mason-black);
+
+    background-color: var(--mason-gold);
+
+    border-color: #e5b329;
+
+    font-weight: 600;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+    color: var(--mason-black);
+
+    background-color: #f0b900;
+
+    border-color: #dca900;
+}
+
+
+/* =========================================================
+   DROPDOWN MENUS
+   ========================================================= */
+
+.dropdown-menu {
+    border-color: var(--mason-border);
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 82, 57, 0.10);
+}
+
+.dropdown-menu > li > a {
+    padding: 7px 16px;
+
+    color: var(--mason-black);
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: var(--mason-green);
+
+    background-color: var(--mason-green-light);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    padding-right: 18px;
+}
+
+.compose-button {
+    padding: 9px 12px;
+
+    border-radius: 5px;
+
+    letter-spacing: 0.1px;
+}
+
+.compose-button .glyphicon {
+    margin-right: 5px;
+}
+
+.sidebar hr {
+    margin-top: 14px;
+    margin-bottom: 12px;
+}
+
+.nav-pills > li > a {
+    padding: 8px 11px;
+
+    margin-bottom: 2px;
+
+    color: var(--mason-black);
+
+    border-radius: 5px;
+}
+
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+    color: var(--mason-green);
+
+    background-color: var(--mason-green-light);
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    color: var(--mason-green);
+
+    background-color: var(--mason-green-light);
+
+    font-weight: 600;
+
+    border-left: 3px solid var(--mason-gold);
+
+    padding-left: 8px;
+}
+
+.nav-pills .badge {
+    color: var(--mason-green);
+
+    background-color: transparent;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+.nav-tabs {
+    border-bottom: 2px solid var(--mason-border);
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+
+    padding: 10px 15px;
+
+    color: var(--mason-gray);
+
+    border: 0;
+
+    border-bottom: 3px solid transparent;
+
+    border-radius: 0;
+
+    font-weight: 500;
+}
+
+.nav-tabs > li > a:hover,
+.nav-tabs > li > a:focus {
+    color: var(--mason-green);
+
+    background-color: transparent;
+
+    border-color:
+        transparent
+        transparent
+        var(--mason-gold);
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: var(--mason-green);
+
+    background-color: transparent;
+
+    border: 0;
+
+    border-bottom: 3px solid var(--mason-gold);
+
+    font-weight: 600;
+}
+
+.nav-tabs .glyphicon:not(.no-margin) {
+    margin-right: 8px;
+}
+
+
+/* =========================================================
+   MESSAGE PANEL
+   ========================================================= */
+
+.tab-content {
+    background-color: var(--white);
+
+    border-left: 1px solid var(--mason-border);
+    border-right: 1px solid var(--mason-border);
+    border-bottom: 1px solid var(--mason-border);
+}
+
+.tab-pane .list-group {
+    margin-bottom: 0;
+}
+
+.tab-pane .list-group-item {
+    min-height: 52px;
+
+    padding: 14px 13px;
+
+    color: var(--mason-black);
+
+    background-color: var(--white);
+
+    border-color: var(--mason-border);
+
+    border-left: 0;
+    border-right: 0;
+
+    transition:
+        background-color 0.12s ease;
+}
+
+.tab-pane .list-group-item:hover {
+    background-color: #fafcfb;
+}
+
+.tab-pane .list-group-item:first-child {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.tab-pane .list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+/* =========================================================
+   MESSAGE CHECKBOXES
+   ========================================================= */
+
+.tab-pane .list-group .checkbox {
+    display: inline-block;
+
+    margin: 0 7px 0 0;
+
+    vertical-align: middle;
+}
+
+.tab-pane .list-group input[type="checkbox"] {
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   MESSAGE ICONS
+   ========================================================= */
+
+.tab-pane .list-group .glyphicon {
+    margin-right: 6px;
+
+    color: #a1aaa6;
+
+    vertical-align: middle;
+}
+
+.tab-pane .list-group .glyphicon:hover {
+    color: var(--mason-gold);
+}
+
+.tab-pane .list-group .glyphicon-star {
+    color: var(--mason-gold);
+}
+
+.attachment {
+    color: var(--mason-green) !important;
+}
+
+
+/* =========================================================
+   READ MESSAGES
+   ========================================================= */
+
+a.list-group-item.read {
+    color: #4f5552;
+
+    background-color: #f3f5f4;
+}
+
+
+/* =========================================================
+   MESSAGE LABELS
+   ========================================================= */
+
+.name {
+    display: inline-block;
+
+    min-width: 120px;
+
+    margin-right: 5px;
+
+    padding: 4px 8px;
+
+    border-radius: 3px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    vertical-align: middle;
+}
+
+.label-info {
+    color: var(--white);
+
+    background-color: var(--mason-green);
+}
+
+.label-success {
+    color: var(--mason-black);
+
+    background-color: var(--mason-gold);
+}
+
+.label-warning {
+    color: var(--white);
+
+    background-color: var(--mason-gray);
+}
+
+
+/* =========================================================
+   MESSAGE TEXT
+   ========================================================= */
+
+.message-preview {
+    color: var(--mason-black);
+}
+
+.message-detail {
+    color: var(--mason-gray);
+
+    font-size: 11px;
+}
+
+.message-time {
+    color: var(--mason-gray);
+
+    background-color: transparent;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+    padding: 34px 20px;
+
+    color: var(--mason-gray);
+
+    text-align: center;
+}
+
+.empty-state .glyphicon {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #b7c3be;
+
+    font-size: 24px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    body {
+        margin-top: 18px;
+    }
+
+    .mason-header {
+        margin-bottom: 15px;
+    }
+
+    .toolbar {
+        margin-bottom: 8px;
+    }
+
+    .sidebar {
+        padding-right: 15px;
+        margin-bottom: 18px;
+    }
+
+    .sidebar .nav-pills {
+        margin-bottom: 0;
+    }
+
+    .message-range {
+        display: none;
+    }
+
+    .pull-right .btn-group {
+        margin-left: 5px;
+    }
+
+    .tab-pane .list-group-item {
+        padding: 11px 9px;
+    }
+
+    .name {
+        min-width: 95px;
+    }
+
+    .message-detail {
+        display: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .mason-mark {
+        width: 36px;
+        height: 36px;
+
+        margin-right: 9px;
+
+        font-size: 15px;
+    }
+
+    .mason-title {
+        font-size: 18px;
+    }
+
+    .nav-tabs > li > a {
+        padding: 9px 8px;
+
+        font-size: 12px;
+    }
+
+    .nav-tabs .glyphicon:not(.no-margin) {
+        margin-right: 4px;
+    }
+
+    .name {
+        min-width: 0;
+        max-width: 100px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+    .message-preview {
+        display: inline;
+    }
+
+    .message-time {
+        display: none;
+    }
+
+    .attachment {
+        display: none;
+    }
+}

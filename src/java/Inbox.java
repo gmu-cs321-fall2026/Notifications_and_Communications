@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Holds notifications in display order:
@@ -11,9 +12,19 @@ import java.util.Optional;
  * Methods are synchronized so the structure is safe to share behind an API.
  */
 public class Inbox {
-
     private final List<Notification> pinned = new ArrayList<>();
     private final List<Notification> unpinned = new ArrayList<>();
+    private final String id;   
+    private String name;      
+
+    public Inbox() {
+        this("Inbox");
+    }
+
+    public Inbox(String name) {
+        this.id = UUID.randomUUID().toString();
+        this.name = validateName(name);
+    }
 
     /** Adds a new notification to the front of the unpinned section. */
     public synchronized Notification add(Notification notification) {
@@ -22,7 +33,7 @@ public class Inbox {
         }
         if (contains(notification.getId())) {
             throw new IllegalStateException("notification already in inbox: " + notification.getId());
-        }
+        } 
         notification.setPinned(false);
         unpinned.add(0, notification);
         return notification;
@@ -105,6 +116,14 @@ public class Inbox {
         unpinned.clear();
     }
 
+    public String getId() { return id; }
+
+    public synchronized String getName() { return name; }
+
+    public synchronized void rename(String newName) {
+        this.name = validateName(newName);
+    }
+
     // --- helpers ---
 
     private boolean contains(String id) {
@@ -124,5 +143,17 @@ public class Inbox {
             if (n.getId().equals(id)) return n;
         }
         return null;
+    }
+
+    private static String validateName(String name) {
+    if (name == null || name.isBlank()) {
+        throw new IllegalArgumentException("inbox name must not be empty");
+    }
+    return name.trim();
+    }
+
+    @Override
+    public synchronized String toString() {
+        return "Inbox{id=" + id + ", name='" + name + "', size=" + size() + "}";
     }
 }

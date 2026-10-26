@@ -1,6 +1,32 @@
+console.log("inbox.js loaded!");
 (function ($) {
   "use strict";
   $(function () {
+    console.log("Document ready — starting notification request");
+    
+    $.ajax({
+      url: "http://localhost:8080/api/notifications",
+      method: "GET",
+      dataType: "json",
+
+      success: function (notifications) {
+        console.log("Notifications received from backend:", notifications);
+
+        notifications.forEach(function (notification) {
+          console.log(
+            notification.id,
+            notification.title,
+            notification.message
+          );
+        });
+      },
+
+      error: function (xhr, status, error) {
+        console.error("Failed to fetch notifications:", error);
+        console.error("HTTP status:", xhr.status);
+      }
+    });
+
     /* Bootstrap tooltips */
     $('[data-toggle="tooltip"]').tooltip();
 

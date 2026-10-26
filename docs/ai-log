@@ -1,0 +1,4 @@
+Ha Nguyen - 10/20
+Asked: "With vanilla Java, create a simple notification and inbox structure. This inbox will support adding and removing notification. Notification can be also pinned and push up to front. There will be an API communicating to this structure as it is the back end. Keep the file structure as simple as possible. Other functionality will be added later. For now, create a simple structure using vanilla Java for these 2 objects."
+Produced: Two files in java folder: Inbox.java and Notification.java
+Changed or reject: Nothing for now, the files will go under review and be pushed into main once accepted.

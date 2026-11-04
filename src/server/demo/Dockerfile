@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:17-jdk-jammy as builder
+FROM eclipse-temurin:17-jdk-jammy AS builder
 
 WORKDIR /build
 
@@ -12,7 +12,7 @@ COPY ./src/main/resources src/main/resources
 
 RUN ./mvnw package -DskipTests
 
-FROM eclipse-temurin:17-jre-jammy as final
+FROM eclipse-temurin:17-jre-jammy AS final
 
 ARG UID=10001
 RUN adduser \

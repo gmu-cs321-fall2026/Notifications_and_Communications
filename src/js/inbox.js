@@ -29,6 +29,32 @@ console.log("inbox.js loaded!");
 
     /* Bootstrap tooltips */
     $('[data-toggle="tooltip"]').tooltip();
+    
+        // Adds "Mark as read" and "Mark as unread" buttons to the toolbar
+    function addMarkButtons() {
+      var $group = $('<div class="btn-group" style="margin-left:10px;"></div>');
+
+      // Button: adds the 'read' class to every ticked message
+      $('<button type="button" class="btn btn-default btn-sm">Mark as read</button>')
+        .on('click', function () {
+          $('.tab-pane.active .list-group-item input[type="checkbox"]:checked')
+            .closest('.list-group-item')
+            .addClass('read');
+        })
+        .appendTo($group);
+
+      // Button: removes the 'read' class from every ticked message
+      $('<button type="button" class="btn btn-default btn-sm">Mark as unread</button>')
+        .on('click', function () {
+          $('.tab-pane.active .list-group-item input[type="checkbox"]:checked')
+            .closest('.list-group-item')
+            .removeClass('read');
+        })
+        .appendTo($group);
+
+      $('.toolbar').first().append($group);
+    }
+    addMarkButtons();
 
     /* Individual message checkboxes */
     $('.tab-pane .list-group-item input[type="checkbox"]').on('change', function () {

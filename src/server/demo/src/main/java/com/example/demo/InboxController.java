@@ -57,10 +57,13 @@ public class InboxController {
     @PostMapping("/notifications")
     public ResponseEntity<Notification> addNotification(
             @RequestBody NotificationRequest request) {
-
-        Notification notification =
+        Notification notification;
+        try{
+        notification =
                 inbox.add(request.title(), request.message());
-
+        }catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
         sseService.broadcast(
             "notification-added",
             notification

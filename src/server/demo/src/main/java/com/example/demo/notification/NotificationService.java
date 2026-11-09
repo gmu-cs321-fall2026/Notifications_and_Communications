@@ -69,7 +69,6 @@ public class NotificationService {
             title.trim(),
             message,
             Instant.now().toString(),
-            false,
             false
         );
     }

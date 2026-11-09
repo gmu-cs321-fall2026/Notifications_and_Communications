@@ -5,19 +5,34 @@ import com.example.demo.java.Notification;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import org.springframework.http.MediaType;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/inbox")
 public class InboxController {
 
     private final Inbox inbox;
+    private final InboxSseService sseService;
 
-    public InboxController() {
+    public InboxController(InboxSseService sseService) {
         this.inbox = new Inbox("My Inbox");
+        this.sseService = sseService;
+    }
+
+    // SSE connection
+    @GetMapping(
+        value = "/stream",
+        produces = MediaType.TEXT_EVENT_STREAM_VALUE
+    )
+
+
+    public SseEmitter stream() {
+        return sseService.subscribe();
     }
 
     // Hello World endpoint for testing
@@ -46,6 +61,10 @@ public class InboxController {
         Notification notification =
                 inbox.add(request.title(), request.message());
 
+        sseService.broadcast(
+            "notification-added",
+            notification
+        );
         return ResponseEntity.ok(notification);
     }
 

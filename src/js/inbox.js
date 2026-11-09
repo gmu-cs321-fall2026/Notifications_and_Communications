@@ -257,3 +257,42 @@ console.log("inbox.js loaded!");
     });
   });
 })(jQuery);
+
+/*
+const eventSource = new EventSource(
+    "http://localhost:8080/api/inbox/stream"
+);
+
+// Connection established
+eventSource.addEventListener("connected", (event) => {
+    console.log(event.data);
+});
+
+// New notification
+eventSource.addEventListener("notification-added", (event) => {
+    const notification = JSON.parse(event.data);
+
+    //[AUGUSTINE NOTE] create something where it would get the new inbox and display that.
+
+    console.log("New notification:", notification);
+});
+
+// Notification removed
+eventSource.addEventListener("notification-removed", (event) => {
+    const data = JSON.parse(event.data);
+
+    console.log("Removed notification:", data.id);
+});
+
+// Notification updated
+eventSource.addEventListener("notification-updated", (event) => {
+    const notification = JSON.parse(event.data);
+
+    console.log("Updated notification:", notification);
+});
+
+// Connection errors
+eventSource.onerror = (error) => {
+    console.error("SSE connection error:", error);
+};
+*/

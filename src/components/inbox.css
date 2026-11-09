@@ -158,6 +158,14 @@ input:focus {
     color: var(--mason-black);
 }
 
+.notification-button .glyphicon {
+    margin-right: 5px;
+
+    color: var(--mason-green);
+
+    vertical-align: -1px;
+}
+
 hr {
     margin-top: 12px;
     margin-bottom: 18px;
@@ -240,6 +248,44 @@ hr {
     border-color: #dca900;
 }
 
+.btn-primary {
+    color: var(--white);
+
+    background-color: var(--mason-green);
+
+    border-color: var(--mason-green);
+
+    font-weight: 600;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    color: var(--white);
+
+    background-color: var(--mason-green-dark);
+
+    border-color: var(--mason-green-dark);
+}
+
+
+.btn-primary[disabled],
+.btn-primary[disabled]:hover,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled]:active {
+    background-color: var(--mason-green);
+
+    border-color: var(--mason-green);
+}
+
+.btn-default[disabled],
+.btn-default[disabled]:hover,
+.btn-default[disabled]:focus,
+.btn-default[disabled]:active {
+    background-color: var(--white);
+
+    border-color: var(--mason-border);
+}
 
 /* =========================================================
    DROPDOWN MENUS
@@ -575,6 +621,109 @@ a.list-group-item.read {
     font-size: 24px;
 }
 
+/* =========================================================
+   NOTIFICATION PREFERENCES MODAL
+   ========================================================= */
+ 
+#notification-preferences-modal .modal-content {
+    border: 1px solid var(--mason-border);
+ 
+    border-radius: 6px;
+ 
+    box-shadow:
+        0 12px 32px rgba(0, 82, 57, 0.18);
+}
+ 
+#notification-preferences-modal .modal-header {
+    padding: 16px 20px;
+ 
+    border-bottom: 3px solid var(--mason-gold);
+}
+ 
+#notification-preferences-modal .modal-title {
+    color: var(--mason-green);
+ 
+    font-size: 18px;
+    font-weight: 700;
+}
+ 
+#notification-preferences-modal .close {
+    color: var(--mason-gray);
+ 
+    opacity: 1;
+}
+ 
+#notification-preferences-modal .close:hover,
+#notification-preferences-modal .close:focus {
+    color: var(--mason-green);
+}
+ 
+#notification-preferences-modal .modal-body {
+    padding: 18px 20px 6px;
+}
+ 
+/* Section headings ("Where should we notify you?" ...) */
+#notification-preferences-modal .control-label {
+    margin-bottom: 4px;
+ 
+    color: var(--mason-black);
+}
+ 
+#notification-preferences-modal .control-label strong {
+    font-weight: 600;
+}
+ 
+/* Thin divider between the three sections */
+#notification-preferences-modal .form-group + .form-group {
+    padding-top: 14px;
+ 
+    border-top: 1px solid var(--mason-border);
+}
+ 
+#notification-preferences-modal .radio,
+#notification-preferences-modal .checkbox {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+ 
+#notification-preferences-modal .radio label,
+#notification-preferences-modal .checkbox label {
+    color: var(--mason-black);
+}
+ 
+/* Green radio dots and checkmarks (modern browsers) */
+#notification-preferences-modal input[type="radio"],
+#notification-preferences-modal input[type="checkbox"] {
+    accent-color: var(--mason-green);
+}
+ 
+#notification-preferences-modal .text-muted {
+    color: var(--mason-gray);
+}
+ 
+/* "Loading..." message in brand green; errors keep Bootstrap red */
+#notification-preferences-modal .alert {
+    border-radius: 5px;
+}
+ 
+#notification-preferences-modal .alert-info {
+    color: var(--mason-green);
+ 
+    background-color: var(--mason-green-light);
+ 
+    border-color: #bfd2ca;
+}
+ 
+#notification-preferences-modal .modal-footer {
+    padding: 14px 20px;
+ 
+    background-color: var(--mason-light-gray);
+ 
+    border-top: 1px solid var(--mason-border);
+ 
+    border-radius: 0 0 6px 6px;
+}
+
 
 /* =========================================================
    TABLET
@@ -675,5 +824,25 @@ a.list-group-item.read {
 
     .attachment {
         display: none;
+    }
+
+    .notification-button-label {
+        position: absolute;
+
+        width: 1px;
+        height: 1px;
+
+        margin: -1px;
+        padding: 0;
+
+        overflow: hidden;
+
+        clip: rect(0, 0, 0, 0);
+
+        border: 0;
+    }
+
+    .notification-button .glyphicon {
+        margin-right: 0;
     }
 }

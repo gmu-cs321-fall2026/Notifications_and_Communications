@@ -3,7 +3,8 @@ console.log("inbox.js loaded!");
   "use strict";
   $(function () {
     console.log("Document ready — starting notification request");
-    
+
+    // Existing GET call and response handling remain unchanged.
     $.ajax({
       url: "http://localhost:8080/api/notifications",
       method: "GET",
@@ -26,6 +27,28 @@ console.log("inbox.js loaded!");
         console.error("HTTP status:", xhr.status);
       }
     });
+
+    // Call this function when the UI or another client needs a templated notification.
+    window.createTemplatedNotification = function (templateId, params, title) {
+      return $.ajax({
+        url: "http://localhost:8080/api/notifications/template",
+        method: "POST",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify({
+          templateId: templateId,
+          params: params,
+          title: title
+        }),
+        success: function (notification) {
+          console.log("Templated notification created:", notification);
+        },
+        error: function (xhr, status, error) {
+          console.error("Failed to create templated notification:", error);
+          console.error("HTTP status:", xhr.status);
+        }
+      });
+    };
 
     /* Bootstrap tooltips */
     $('[data-toggle="tooltip"]').tooltip();
@@ -87,17 +110,12 @@ console.log("inbox.js loaded!");
       var $messages = $('.tab-pane.active .list-group-item');
       var $checkboxes = $messages.find('input[type="checkbox"]');
 
-      /* All */
       if (action === 'all') {
         $checkboxes.prop('checked', true).trigger('change');
       }
-
-      /* None */
       if (action === 'none') {
         $checkboxes.prop('checked', false).trigger('change');
       }
-
-      /* Read */
       if (action === 'read') {
         $checkboxes.prop('checked', false).trigger('change');
         $messages
@@ -106,8 +124,6 @@ console.log("inbox.js loaded!");
           .prop('checked', true)
           .trigger('change');
       }
-
-      /* Unread */
       if (action === 'unread') {
         $checkboxes.prop('checked', false).trigger('change');
         $messages
@@ -116,8 +132,6 @@ console.log("inbox.js loaded!");
           .prop('checked', true)
           .trigger('change');
       }
-
-      /* Starred */
       if (action === 'starred') {
         $checkboxes.prop('checked', false).trigger('change');
         $messages
@@ -127,8 +141,6 @@ console.log("inbox.js loaded!");
           .prop('checked', true)
           .trigger('change');
       }
-
-      /* Unstarred */
       if (action === 'unstarred') {
         $checkboxes.prop('checked', false).trigger('change');
         $messages
@@ -140,6 +152,7 @@ console.log("inbox.js loaded!");
       }
     });
   });
+})(jQuery);
 
     /*
      * API template.

@@ -83,7 +83,7 @@ The backend includes a Dockerfile and Compose configuration. From `src/server/de
 docker compose up --build
 ```
 
-Compose maps port `8000` on your machine to the application’s port `8080` in the container.
+Compose maps port `8080` on your machine to the application’s port `8080` in the container.
 
 ## API reference
 

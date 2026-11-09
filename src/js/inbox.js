@@ -151,9 +151,6 @@ console.log("inbox.js loaded!");
           .trigger('change');
       }
     });
-  });
-})(jQuery);
-
     /*
      * API template.
      * Both methods must return a jQuery promise so the UI code
@@ -258,6 +255,5 @@ console.log("inbox.js loaded!");
           $prefsSave.text('Save preferences');
         });
     });
-
+  });
 })(jQuery);
-

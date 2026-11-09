@@ -6,7 +6,6 @@ public record NotificationPayload(
     String title,
     String message,
     String createdAt,
-    boolean pinned,
     boolean read
 ) {
 }

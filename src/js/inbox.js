@@ -12,7 +12,6 @@ $.ajax({
 
   success: function (notifications) {
     console.log("Notifications received from backend:", notifications);
-
     notifications.forEach(function (notification) {
       console.log(
         notification.id,
@@ -20,7 +19,7 @@ $.ajax({
         notification.message
       );
     });
-  },
+},
 
   error: function (xhr, status, error) {
     console.error("Failed to fetch notifications:", error);
@@ -52,7 +51,6 @@ window.createTemplatedNotification = function (templateId, params, title) {
 
 /* Bootstrap tooltips */
 $('[data-toggle="tooltip"]').tooltip();
-
 
 /*
  * Enlarged notification view.
@@ -144,7 +142,6 @@ $(document).on('click', '.tab-pane .list-group-item', function (event) {
   
   openNotification(title, message);
 });
-
 
 // Adds "Mark as read" and "Mark as unread" buttons to the toolbar
 function addMarkButtons() {
@@ -332,8 +329,8 @@ $prefsForm.on('submit', function (event) {
   event.preventDefault();
 
   var prefs = readPrefsForm();
-
-  setPrefsDisabled(true);
+  
+setPrefsDisabled(true);
   $prefsSave.text('Saving…');
 
   NotificationPreferencesApi.save(prefs)
@@ -347,6 +344,6 @@ $prefsForm.on('submit', function (event) {
       setPrefsDisabled(false);
       $prefsSave.text('Save preferences');
     });
-});
+  });
 });
 })(jQuery);

@@ -40,3 +40,8 @@ Ashley Nguyen - 11/9
 Asked: "Looking at the entire Notifications_and_Communications repo, create a ReadMe to summarize the project and explain why it matters and how to use it. Acceptance criteria: only summarize what the repo has. Do not create a feature that does not exist or does not make sense. Return the draft of the ReadMe, do not make any changes to the repo."
 Produced: "See README.md"
 Changed: Added descriptions for API endpoints
+
+Abdurrahman Shaheen - 11/17
+Asked: "Using the latest version of JavaScript, create a function for inbox.js without modifying the other contents of inbox.js. This function should have the following implementation: upon clicking a notification, a pop-up will open, with the notification title displayed in bold on top, with a clear separation between it and the contents of the notification underneath the title. The background should dim to highlight the pop-up. Clicking inside the pop-up does nothing, while clicking outside the pop-up in the dimmed background should close the notification."
+Produced: Initially produced incorrect code that didn't work, syntax errors, mismatch with notification specifications etc. After prompting several times, eventually narrowed down the function to as simple an implementation as possible while still working with the rest of inbox.js. Notifications can now be opened and closed.
+Changed: As mentioned above, the code was initially faulty, so additional prompts were necessary to whittle out bad code, useless imports, and errors.

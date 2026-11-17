@@ -45,3 +45,13 @@ Abdurrahman Shaheen - 11/17
 Asked: 'Using the latest version of JavaScript, create a function for inbox.js without modifying the other contents of inbox.js. This function should have the following implementation: upon clicking a notification, a pop-up will open, with the notification title displayed in bold on top, with a clear separation between it and the contents of the notification underneath the title. The background should dim to highlight the pop-up. Clicking inside the pop-up does nothing, while clicking outside the pop-up in the dimmed background should close the notification.'
 Produced: Initially produced incorrect code that didn't work, syntax errors, mismatch with notification specifications etc. After prompting several times, eventually narrowed down the function to as simple an implementation as possible while still working with the rest of inbox.js. Notifications can now be opened and closed.
 Changed: As mentioned above, the code was initially faulty, so additional prompts were necessary to whittle out bad code, useless imports, and errors.
+
+Augustine Nguyen 11/3
+Asked: Implement a restapi with spring boot given the content of the java folder and the inboxes within. Make a api call for all methods and create a placeholder method for a later api call. There will also be an extra method to populate the inbox with testing notification
+Produced: An modifed InboxController with GET and POST connection to all inbox methods. It also did not touch the UserInInboxes so it only takes 1 user for this api.
+Changed or reject: Nothing was changed, but a mental note on the fact only 1 user can use the restapi and that most of the api aren't needed
+
+Augustine Nguyen 11/7
+Asked: how would you implement a SSE for this spring boot inboxcontroller.
+Produced: Information on what a SSE I should use, the fact I would use a different file and not shove it into inbox, updated information on what my inboxcontroller should have and what methods should change.
+Changed or rejected: I'm currently rejecting most of the inbox method changes as I want the frontend to still use the restapi for MOST of the api. But I will still keep the implementation idea of using certain methods to "emit" a signal to the frontend. Along with how to put this into the frontend.

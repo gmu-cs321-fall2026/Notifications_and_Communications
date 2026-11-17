@@ -48,6 +48,10 @@ Asked: Implement a restapi with spring boot given the content of the java folder
 Produced: An modifed InboxController with GET and POST connection to all inbox methods. It also did not touch the UserInInboxes so it only takes 1 user for this api.
 Changed or reject: Nothing was changed, but a mental note on the fact only 1 user can use the restapi and that most of the api aren't needed
 
+Augustine Nguyen 11/17
+Asked: It to connect the an updated notifcation to an inbox to the api and then to the frontend.
+Produced: The connections and action listeners for the inbox.js files. Along with many small things in the inboxcontroller.
+Changed or rejected: I rejected the clear all functions, did some bug fixes, and better the connection from the live server to the api.
 Augustine Nguyen 11/7
 Asked: how would you implement a SSE for this spring boot inboxcontroller.
 Produced: Information on what a SSE I should use, the fact I would use a different file and not shove it into inbox, updated information on what my inboxcontroller should have and what methods should change.

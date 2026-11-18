@@ -122,7 +122,7 @@ console.log("inbox.js loaded!");
                 }
 
                 return {
-                    channel: "in_app",
+                    channel: pref.email ? "email" : "in_app",
                     frequency: "immediate",
                     events: events
                 };
@@ -133,6 +133,9 @@ console.log("inbox.js loaded!");
             const selectedEvents = preferences.events || [];
 
             const backendPreferences = {
+                inApp: preferences.channel === "in_app",
+                email: preferences.channel === "email",
+
                 application: selectedEvents.indexOf(
                     "interview_or_application"
                 ) !== -1,
@@ -149,12 +152,18 @@ console.log("inbox.js loaded!");
                     "mentor_request"
                 ) !== -1,
 
-                core: false
+                core: selectedEvents.indexOf(
+                    "core"
+                ) !== -1
             };
+
+            console.log("Sending notification preferences:",
+                backendPreferences);
 
             return InboxApi.savePreferences(backendPreferences);
         }
     };
+
 
     /* Escape backend-provided text before inserting it into HTML. */
     function escapeHtml(value) {
@@ -454,6 +463,7 @@ console.log("inbox.js loaded!");
         };
     }
 
+
     function initializePreferences() {
         $prefsModal.on("show.bs.modal", function () {
             setPrefsDisabled(true);
@@ -466,15 +476,16 @@ console.log("inbox.js loaded!");
                     setPrefsDisabled(false);
                 })
                 .fail(function (xhr) {
-                    console.error(
-                        "Unable to load preferences:",
-                        xhr.status
-                    );
+                    console.error("Unable to load preferences:");
+                    console.error("HTTP Status:", xhr.status);
+                    console.error("Response:", xhr.responseText);
 
                     showPrefsStatus(
                         "danger",
-                        "We couldn’t load your preferences. Please try again later."
+                        "We couldn't load your preferences. Please try again later."
                     );
+
+                    setPrefsDisabled(false);
                 });
         });
 
@@ -492,14 +503,14 @@ console.log("inbox.js loaded!");
                     loadInbox(true);
                 })
                 .fail(function (xhr) {
-                    console.error(
-                        "Unable to save preferences:",
-                        xhr.status
-                    );
+                    console.error("Unable to save preferences:");
+                    console.error("HTTP Status:", xhr.status);
+                    console.error("Response:", xhr.responseText);
+                    console.error("Response JSON:", xhr.responseJSON);
 
                     showPrefsStatus(
                         "danger",
-                        "We couldn’t save your preferences. Please try again."
+                        "We couldn't save your preferences. Please try again."
                     );
                 })
                 .always(function () {
@@ -508,6 +519,7 @@ console.log("inbox.js loaded!");
                 });
         });
     }
+
 
     /*
      * Public function for other frontend scripts to add notifications.

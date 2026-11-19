@@ -352,6 +352,53 @@ console.log("inbox.js loaded!");
         $toolbar.find(".col-sm-9, .col-md-10").first().append($group);
     }
 
+
+    /*
+    * Display a native desktop/browser notification.
+    */
+    function showWindowNotification(notification) {
+        if (!("Notification" in window)) {
+            console.warn("Browser notifications are not supported.");
+            return;
+        }
+
+        function displayNotification() {
+            const title = notification.title || "New Notification";
+            const message = notification.message || "You received a new notification.";
+
+            const popup = new Notification(title, {
+                body: message,
+                icon: "/favicon.ico",
+                tag: notification.id
+            });
+
+            // Clicking the popup opens the inbox.
+            popup.onclick = function () {
+                window.focus();
+
+                const inboxLink = document.querySelector(
+                    'a[href="#home"]'
+                );
+
+                if (inboxLink) {
+                    inboxLink.click();
+                }
+
+                popup.close();
+            };
+        }
+
+        if (Notification.permission === "granted") {
+            displayNotification();
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    displayNotification();
+                }
+            });
+        }
+    }
+
     /*
      * Connect to the backend's Server-Sent Events stream.
      * The backend should broadcast:
@@ -370,16 +417,22 @@ console.log("inbox.js loaded!");
             loadInbox();
         });
 
+
         inboxEventSource.addEventListener(
             "notification-added",
             function (event) {
-                console.log(
-                    "Notification added:",
-                    JSON.parse(event.data)
-                );
+                const notification = JSON.parse(event.data);
+
+                console.log("Notification added:", notification);
+
+                // Show native desktop/browser popup.
+                showWindowNotification(notification);
+
+                // Refresh the inbox.
                 loadInbox();
             }
         );
+
 
         inboxEventSource.addEventListener(
             "notification-updated",
@@ -667,6 +720,12 @@ console.log("inbox.js loaded!");
             $('[data-toggle="tooltip"]').tooltip();
         }
 
+        // Request permission for desktop notifications.
+        if ("Notification" in window &&
+            Notification.permission === "default") {
+
+            Notification.requestPermission();
+        }
         // Add read/unread toolbar buttons
         addMarkButtons();
 

@@ -556,6 +556,109 @@ console.log("inbox.js loaded!");
      * Pass true to show the preference-filtered view.
      */
     window.loadInbox = loadInbox;
+
+    /*
+     * Enlarged notification view.
+     * Spec: clicking a notification enlarges it to show its title and contents;
+     * clicking outside the enlarged notification returns it to normal.
+     */
+
+    /** Removes the enlarged notification view if one is open. */
+    function closeNotification() {
+        $(".notification-backdrop").remove();
+    }
+
+    /**
+     * Shows the given title and message in a larger card over a dimmed
+     * backdrop. A divider separates the title from the contents. Clicking the
+     * backdrop (outside the card) closes it. .text() is used so notification
+     * content can't inject HTML into the page.
+     */
+    function openNotification(title, message) {
+        closeNotification();
+
+        const $card = $("<div></div>").css({
+            background: "#fff",
+            padding: "24px",
+            borderRadius: "6px",
+            width: "90%",
+            maxWidth: "600px",
+            maxHeight: "80vh",
+            overflowY: "auto",
+            boxShadow: "0 8px 30px rgba(0, 0, 0, 0.4)"
+        });
+
+        // Title: bold heading with a line underneath to separate it from the contents
+        $card.append(
+            $("<h3></h3>").css({
+                marginTop: 0,
+                paddingBottom: "12px",
+                marginBottom: "16px",
+                borderBottom: "2px solid #ddd",
+                fontWeight: "bold"
+            }).text(title)
+        );
+
+        // Contents: regular text below the divider, keeping line breaks
+        $card.append(
+            $("<p></p>").css({
+                whiteSpace: "pre-wrap",
+                marginBottom: 0,
+                color: "#555"
+            }).text(message)
+        );
+
+        const $backdrop = $('<div class="notification-backdrop"></div>').css({
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(0, 0, 0, 0.5)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+        });
+        $backdrop.append($card);
+
+        // Only a click on the backdrop itself closes it; clicks inside the card do nothing.
+        $backdrop.on("click", function (event) {
+            if (event.target === this) {
+                closeNotification();
+            }
+        });
+
+        $("body").append($backdrop);
+    }
+
+    /*
+     * Opens the enlarged view when a notification row is clicked.
+     * Delegated on document so it keeps working after renderInbox() rebuilds
+     * the list. Clicks on the checkbox, pin or delete buttons inside the row
+     * are ignored so they keep working normally, and so is the empty-inbox row.
+     * The title comes from .message-preview and the contents from
+     * .message-detail, which renderInbox() fills from the backend data.
+     */
+    $(document).on("click", "#home .list-group-item:not(.empty-state)", function (event) {
+        const $control = $(event.target).closest("input, label, a, button");
+        if ($control.length && !$control.is(this)) {
+            return;
+        }
+        event.preventDefault();
+
+        const title = $.trim($(this).find(".message-preview").text());
+        // renderInbox() puts " - " in front of the message; remove it for display
+        const message = $.trim($(this).find(".message-detail").text()).replace(/^-\s*/, "");
+
+        openNotification(title, message);
+        
+        // Mark the notification as read on the backend once it has been opened.
+        const id = $(this).attr("data-id");
+        if (id && !$(this).hasClass("read")) {
+            InboxApi.markRead(id, true).done(function () {
+                loadInbox();
+            });
+        }
+    });
+
         $(function () {
         console.log("Document ready — connecting inbox to backend.");
 

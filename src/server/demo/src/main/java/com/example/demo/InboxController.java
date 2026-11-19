@@ -6,23 +6,64 @@ import com.example.demo.java.Notification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import com.example.demo.java.NotfiTypes;
+import com.example.demo.java.NotificationPref;
 
 import org.springframework.http.MediaType;
 
 import java.util.List;
 import java.util.Map;
 
+
+
+
+@CrossOrigin(origins = {
+    "http://127.0.0.1:5500",
+    "http://localhost:5500"
+})
 @RestController
 @RequestMapping("/api/inbox")
 public class InboxController {
 
     private final Inbox inbox;
     private final InboxSseService sseService;
+    private volatile NotificationPref notificationPref;
 
     public InboxController(InboxSseService sseService) {
         this.inbox = new Inbox("My Inbox");
         this.sseService = sseService;
+        this.notificationPref = new NotificationPref();
     }
+
+    @PostMapping("/preferences")
+    public ResponseEntity<NotificationPref> updateNotificationPreferences(
+            @RequestBody NotificationPref pref) {
+
+        this.notificationPref = pref;
+
+        return ResponseEntity.ok(notificationPref);
+    }
+
+    @GetMapping("/preferences")
+    public ResponseEntity<NotificationPref> getNotificationPreferences() {
+        return ResponseEntity.ok(notificationPref);
+    }
+
+    @PostMapping("testadd")
+    public void postMethodName() {
+        Notification notification = new Notification(
+                "Test Notification"+java.time.Instant.now().toString(),
+                "This is a test notification.",
+                NotfiTypes.Mentor
+        );
+        inbox.add(notification);
+        sseService.broadcast(
+            "notification-added",
+            notification
+        );
+    }
+    
+    
 
     // SSE connection
     @GetMapping(
@@ -60,7 +101,7 @@ public class InboxController {
         Notification notification;
         try{
         notification =
-                inbox.add(request.title(), request.message());
+                inbox.add(request.title(), request.message(), request.notificationType());
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -76,6 +117,12 @@ public class InboxController {
     public ResponseEntity<List<Notification>> getAll() {
         return ResponseEntity.ok(inbox.getAll());
     }
+
+    @GetMapping("notifications/filtered")
+    public ResponseEntity<List<Notification>> filterNotifications() {
+        return ResponseEntity.ok(inbox.filter(notificationPref));
+    }
+    
 
     // Get pinned notifications
     @GetMapping("/notifications/pinned")
@@ -98,11 +145,15 @@ public class InboxController {
     public ResponseEntity<Boolean> removeNotification(
             @PathVariable String id) {
 
-        boolean removed = inbox.remove(id);
+    boolean removed = inbox.remove(id);
 
-        return removed
-                ? ResponseEntity.ok(true)
-                : ResponseEntity.notFound().build();
+    if (removed) {
+        sseService.broadcast("notification-removed",
+                Map.of("id", id));
+        return ResponseEntity.ok(true);
+    }
+
+return ResponseEntity.notFound().build();
     }
 
     // Pin notification
@@ -110,11 +161,17 @@ public class InboxController {
     public ResponseEntity<Boolean> pinNotification(
             @PathVariable String id) {
 
-        boolean pinned = inbox.pin(id);
+    boolean pinned = inbox.pin(id);
 
-        return pinned
-                ? ResponseEntity.ok(true)
-                : ResponseEntity.notFound().build();
+    if (pinned) {
+        inbox.get(id).ifPresent(notification ->
+                sseService.broadcast("notification-updated", notification)
+        );
+
+        return ResponseEntity.ok(true);
+    }
+
+    return ResponseEntity.notFound().build();
     }
 
     // Unpin notification
@@ -149,9 +206,15 @@ public class InboxController {
 
         boolean updated = inbox.markRead(id, read);
 
-        return updated
-                ? ResponseEntity.ok(true)
-                : ResponseEntity.notFound().build();
+        if (!updated) {
+            return ResponseEntity.notFound().build();
+        }
+
+        inbox.get(id).ifPresent(notification ->
+                sseService.broadcast("notification-updated", notification)
+        );
+
+        return ResponseEntity.ok(true);
     }
 
     // Get inbox size
@@ -206,28 +269,47 @@ public class InboxController {
     @PostMapping("/seed")
     public ResponseEntity<List<Notification>> seedInbox() {
 
-        if (inbox.size() > 0) {
-            return ResponseEntity.badRequest().build();
-        }
-
         Notification n1 = inbox.add(
                 "Welcome!",
-                "Welcome to your notification inbox."
+                "Welcome to your notification inbox.",
+                NotfiTypes.Mentor
+        );
+        sseService.broadcast(
+            "notification-added",
+            n1
         );
 
         Notification n2 = inbox.add(
                 "New Message",
-                "You have received a new message."
+                "You have received a new message.",
+                NotfiTypes.Application
+        );
+
+        sseService.broadcast(
+            "notification-added",
+            n2
         );
 
         Notification n3 = inbox.add(
                 "System Update",
-                "The system has been successfully updated."
+                "The system has been successfully updated.",
+                NotfiTypes.Core
+        );
+
+        sseService.broadcast(
+            "notification-added",
+            n3
         );
 
         Notification n4 = inbox.add(
                 "Important Announcement",
-                "Please review the latest announcement."
+                "Please review the latest announcement.",
+                NotfiTypes.Events
+        );
+
+        sseService.broadcast(
+            "notification-added",
+            n4
         );
 
         // Demonstrate pinning and read status
@@ -240,7 +322,8 @@ public class InboxController {
     // Request DTOs
     public record NotificationRequest(
             String title,
-            String message
+            String message,
+            NotfiTypes notificationType
     ) {}
 
     public record RenameRequest(

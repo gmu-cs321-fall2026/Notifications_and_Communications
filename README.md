@@ -52,12 +52,20 @@ To build and run the test suite:
 
 The CI workflow runs Maven verification with Java 21.
 
+(Dev note)
+Or Docker in the same directory as mvnw
+```bash
+docker compose build
+docker compose up
+```
+
 ## Use the inbox API
 
 The controller creates one in-memory inbox named `My Inbox`. Its data is reset when the application restarts. For example, seed it with sample notifications and list them:
 
 ```bash
 curl -X POST http://localhost:8080/api/inbox/seed
+curl -X POST http://localhost:8080/api/inbox/testadd
 curl http://localhost:8080/api/inbox/notifications
 ```
 
@@ -111,11 +119,9 @@ All routes below are relative to `/api/inbox` and are implemented by `InboxContr
 | `PUT` | `/notifications/{id}/read?read=true` | Set read state | Use `read=true` or `read=false`; returns `true`, or `404` if not found. |
 | `POST` | `/seed` | Add example notifications | Only succeeds when the inbox is empty; creates four examples, pins one, marks one read, and returns the list. Returns `400` if the inbox is not empty. |
 
-A notification response includes its generated `id`, `title`, `message`, `createdAt`, `pinned`, and `read` fields.
+A notification response includes its generated `id`, `title`, `type`, `message`, `createdAt`, `pinned`, and `read` fields.
 
 ## Current limitations
 
 - Inbox data is held in memory; no database or durable storage is configured.
-- The API controller manages a single inbox rather than per-user inboxes.
-- The browser mockup and API route are not currently aligned.
-- Although the repository includes notification templates, channel values, and an event-driven architecture decision, it does not contain an email-sending implementation or an event-processing flow.
+- The repository does not contain an email-sending implementation.

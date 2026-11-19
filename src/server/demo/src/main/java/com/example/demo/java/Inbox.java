@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import com.example.demo.java.NotificationPref;
 
 /**
  * Holds notifications in display order:
@@ -42,8 +43,8 @@ public class Inbox {
     }
 
     /** Convenience overload for API callers. */
-    public synchronized Notification add(String title, String message) {
-        return add(new Notification(title, message));
+    public synchronized Notification add(String title, String message, NotfiTypes notificationType) {
+        return add(new Notification(title, message, notificationType));
     }
 
     /** Removes a notification. Returns true if it existed. */
@@ -101,6 +102,24 @@ public class Inbox {
         all.addAll(pinned);
         all.addAll(unpinned);
         return Collections.unmodifiableList(all);
+    }
+
+    public synchronized List<Notification> filter(NotificationPref pref) {
+        List<Notification> filtered = new ArrayList<>();
+        for (Notification n : getAll()) {
+            if (pref.isApplication() && n.getNotificationType() == NotfiTypes.Application) {
+                filtered.add(n);
+            } else if (pref.isMentor() && n.getNotificationType() == NotfiTypes.Mentor) {
+                filtered.add(n);
+            } else if (pref.isEvents() && n.getNotificationType() == NotfiTypes.Events) {
+                filtered.add(n);
+            } else if (pref.isCore() && n.getNotificationType() == NotfiTypes.Core) {
+                filtered.add(n);
+            } else if (pref.isInterview() && n.getNotificationType() == NotfiTypes.Interview) {
+                filtered.add(n);
+            }
+        }
+        return Collections.unmodifiableList(filtered);
     }
 
     public synchronized List<Notification> getPinned() {

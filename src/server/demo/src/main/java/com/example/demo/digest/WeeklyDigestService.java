@@ -24,7 +24,7 @@ public class WeeklyDigestService {
     public WeeklyDigestService(DigestRecipientSource recipientSource,
                                DigestDataSource dataSource,
                                DigestEmailService emailService,
-                               org.springframework.beans.factory.annotation.Value("${digest.zone:UTC}") String zone) {
+                               @org.springframework.beans.factory.annotation.Value("${digest.zone:UTC}") String zone) {
         this.recipientSource = recipientSource;
         this.dataSource = dataSource;
         this.emailService = emailService;

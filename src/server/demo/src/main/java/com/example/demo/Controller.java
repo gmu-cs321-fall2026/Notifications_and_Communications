@@ -36,6 +36,7 @@ public class Controller {
         return List.of(
             Map.of(
                 "id", "1",
+                "notificationType", "Mentor",
                 "title", "Welcome notification",
                 "message", "This is a mock notification from the backend.",
                 "createdAt", Instant.now().toString(),
@@ -44,6 +45,7 @@ public class Controller {
             ),
             Map.of(
                 "id", "2",
+                "notificationType", "Core",
                 "title", "Project update",
                 "message", "Your notification API is working!",
                 "createdAt", Instant.now().toString(),
@@ -52,6 +54,7 @@ public class Controller {
             ),
             Map.of(
                 "id", "3",
+                "notificationType", "Application",
                 "title", "Test notification",
                 "message", "This notification has already been read.",
                 "createdAt", Instant.now().toString(),

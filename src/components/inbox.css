@@ -529,12 +529,10 @@ hr {
    READ MESSAGES
    ========================================================= */
 
-a.list-group-item.read {
+.list-group-item.read {
     color: #4f5552;
-
     background-color: #f3f5f4;
 }
-
 
 /* =========================================================
    MESSAGE LABELS

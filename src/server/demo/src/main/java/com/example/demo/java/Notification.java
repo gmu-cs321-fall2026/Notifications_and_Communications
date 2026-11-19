@@ -3,6 +3,7 @@ package com.example.demo.java;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
+import com.example.demo.java.NotfiTypes;
 
 /**
  * A single notification. Identity is the generated id; title and message are
@@ -13,23 +14,26 @@ public class Notification {
     private final String id;
     private final String title;
     private final String message;
+    private final NotfiTypes notificationType;
     private final Instant createdAt;
     private boolean pinned;
     private boolean read;
 
-    public Notification(String title, String message) {
+    public Notification(String title, String message, NotfiTypes notificationType) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("title must not be empty");
         }
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.message = message == null ? "" : message;
+        this.notificationType = notificationType;
         this.createdAt = Instant.now();
     }
 
     public String getId() { return id; }
     public String getTitle() { return title; }
     public String getMessage() { return message; }
+    public NotfiTypes getNotificationType() { return notificationType; }
     public Instant getCreatedAt() { return createdAt; }
     public boolean isPinned() { return pinned; }
     public boolean isRead() { return read; }
@@ -50,7 +54,7 @@ public class Notification {
 
     @Override
     public String toString() {
-        return "Notification{id=" + id + ", title='" + title + "', pinned=" + pinned
-                + ", read=" + read + ", createdAt=" + createdAt + "}";
+        return "Notification{id=" + id + ", title='" + title + "', notificationType=" + notificationType
+                + ", pinned=" + pinned + ", read=" + read + ", createdAt=" + createdAt + "}";
     }
 }

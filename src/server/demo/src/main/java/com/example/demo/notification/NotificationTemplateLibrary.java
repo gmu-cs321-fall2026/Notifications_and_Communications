@@ -41,6 +41,12 @@ public class NotificationTemplateLibrary {
             Arrays.asList("title", "days", "location", "link")
         ));
 
+        templates.put("waitlist_promoted", new NotificationTemplate(
+            "waitlist_promoted",
+            "A spot opened up! You're now registered for {title} on {date} at {time} at {location}.",
+            Arrays.asList("title", "date", "time", "location")
+        ));
+
         templates.put("mentor_request", new NotificationTemplate(
             "mentor_request",
             "{name} has requested a mentorship with you.",

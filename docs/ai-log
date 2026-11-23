@@ -64,4 +64,9 @@ Changed or rejected: I rejected the clear all functions, did some bug fixes, and
 Ashley Nguyen 11/19
 Asked: In Java 17 with Spring Boot, following our src/server/demo/src/main/java/com/example/demo/digest/ pattern, implement buildDigest() to create a weekly digest for one user. Input includes the user ID, recipient email, upcoming interviews, application deadlines, new career events, and new mentor recommendations. Output is a WeeklyDigest with those four item lists. Acceptance criteria: include interviews and deadlines within the next seven days, include only events and recommendations newer than the user’s last digest, handle empty or missing item lists without throwing an exception, and skip sending when the digest is empty or the user has not opted in.
 Produced: Most of everything new in 13-Weekly-Digest branch
-Changed: Have not writtten an email sender. Will include that with a new branch to not overbloat the PR. Before deployment, the APIs will need to be connected to the real subsystems. 
+Changed: Have not writtten an email sender. Will include that with a new branch to not overbloat the PR. Before deployment, the APIs will need to be connected to the real subsystems. Corrected syntax error that cause build fail in WeeklyDigestService.java in line 27. 
+
+Ashley Nguyen 11/23
+Asked: “In Java 17 with Spring Boot, in our src/server/demo backend, create a SendGrid email sender for weekly digests and notifications. Use SendGrid’s HTTPS API, with the API key and verified sender address read from environment variables. Acceptance criteria: send both plain-text and HTML email; support digest and individual notification messages; skip empty digests and recipients without a deliverable email address; escape user-provided content in HTML; keep email delivery disabled until configured; and document the required environment variables.”
+Produced: Most of everything new in 31-Email-Sender branch
+Changed: Added new template at request of Career Events subsystem

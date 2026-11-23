@@ -1,11 +1,7 @@
 package com.example.demo.digest;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.demo.email.SendGridEmailSender;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,27 +9,18 @@ import java.util.List;
 @Service
 @ConditionalOnProperty(prefix = "digest", name = "enabled", havingValue = "true")
 public class DigestEmailService {
-    private final JavaMailSender mailSender;
-    private final String fromAddress;
+    private final SendGridEmailSender emailSender;
 
-    public DigestEmailService(JavaMailSender mailSender,
-                              @Value("${digest.from:no-reply@careerlaunch.example}") String fromAddress) {
-        this.mailSender = mailSender;
-        this.fromAddress = fromAddress;
+    public DigestEmailService(SendGridEmailSender emailSender) {
+        this.emailSender = emailSender;
     }
 
     public void send(WeeklyDigest digest) {
-        try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
-            helper.setFrom(fromAddress);
-            helper.setTo(digest.recipientEmail());
-            helper.setSubject("Your weekly CareerLaunch digest");
-            helper.setText(renderPlainText(digest), renderHtml(digest));
-            mailSender.send(message);
-        } catch (MessagingException exception) {
-            throw new IllegalStateException("Could not build digest email for user " + digest.userId(), exception);
-        }
+        emailSender.send(
+                digest.recipientEmail(),
+                "Your weekly CareerLaunch digest",
+                renderPlainText(digest),
+                renderHtml(digest));
     }
 
     private String renderPlainText(WeeklyDigest digest) {
@@ -80,8 +67,7 @@ public class DigestEmailService {
             html.append("<li><strong>").append(escape(item.title())).append("</strong> — ")
                     .append(escape(item.summary()));
             if (isSafeHttpUrl(item.url())) {
-                String safeUrl = escape(item.url());
-                html.append(" <a href=\"").append(safeUrl).append("\">View details</a>");
+                html.append(" <a href=\"").append(escape(item.url())).append("\">View details</a>");
             }
             html.append("</li>");
         }

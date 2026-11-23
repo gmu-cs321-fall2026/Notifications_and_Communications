@@ -61,7 +61,17 @@ Asked: It to connect the an updated notifcation to an inbox to the api and then 
 Produced: The connections and action listeners for the inbox.js files. Along with many small things in the inboxcontroller.
 Changed or rejected: I rejected the clear all functions, did some bug fixes, and better the connection from the live server to the api.
 
+Augustine Nguyen 11/18
+Asked: Fix the incorrect format for saving preferences
+Produced: Added in-app and email to the request body so the api gets what it wants and works.
+Change or rejected: I changed the fail message to properly tell me what fails next time.
+
 Ashley Nguyen 11/19
 Asked: In Java 17 with Spring Boot, following our src/server/demo/src/main/java/com/example/demo/digest/ pattern, implement buildDigest() to create a weekly digest for one user. Input includes the user ID, recipient email, upcoming interviews, application deadlines, new career events, and new mentor recommendations. Output is a WeeklyDigest with those four item lists. Acceptance criteria: include interviews and deadlines within the next seven days, include only events and recommendations newer than the user’s last digest, handle empty or missing item lists without throwing an exception, and skip sending when the digest is empty or the user has not opted in.
 Produced: Most of everything new in 13-Weekly-Digest branch
 Changed: Have not writtten an email sender. Will include that with a new branch to not overbloat the PR. Before deployment, the APIs will need to be connected to the real subsystems. 
+
+Augustine Nguyen 11/19
+Asked: Given the js file, Make a request on start up. This will ask the user for permission to send a window notification when a notification-add sse is sent. Also implement the code for that function
+Produced: A function for the window notification and a change to the see so it would call that function.
+Change or rejected: nothing as the code was a simple implementation.
